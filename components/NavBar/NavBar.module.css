@@ -1,0 +1,15 @@
+.nav {
+}
+.ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  width: 400px;
+}
+.activeLink {
+  color: #fbc02d;
+}
+.a {
+  font-size: 18px;
+}

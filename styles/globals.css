@@ -9,8 +9,15 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  color: #fff;
+}
+a:hover {
+  color: #fbc02d;
 }
 
 * {
   box-sizing: border-box;
+}
+.flex {
+  display: flex;
 }

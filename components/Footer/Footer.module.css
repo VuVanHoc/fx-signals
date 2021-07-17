@@ -1,0 +1,22 @@
+.container {
+  background-color: #212121;
+  border-top: 1px solid #424242;
+  padding: 10px 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.p {
+  color: #bdbdbd;
+  margin: 0;
+}
+.ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  width: 300px;
+}
+.a {
+  color: #bdbdbd;
+}
