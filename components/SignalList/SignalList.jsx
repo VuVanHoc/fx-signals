@@ -49,7 +49,7 @@ export default function SignalList() {
         params.period = periodType;
       }
       const res = await axios.get(
-        `http://54.179.120.86:8080/hungcr-signal/api/data/signals`,
+        `https://forex-signal-api.herokuapp.com/hungcr-signal/api/data/signals`,
         {
           params: params,
         }
