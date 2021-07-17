@@ -8,8 +8,10 @@ import SignalItem from "./SignalItem";
 export default function SignalList() {
   const tabs = useMemo(
     () => [
-      { title: "BTC", value: 0 },
-      { title: "XAU", value: 1 },
+      { title: "BTC D1", value: 0 },
+      { title: "BTC H4", value: 1 },
+      { title: "BTC H1", value: 2 },
+      { title: "XAU", value: 3 },
     ],
     []
   );
@@ -21,16 +23,36 @@ export default function SignalList() {
     setLoading(true);
     try {
       let dataType = "BTCUSDT";
+      let periodType = "D";
+
       switch (tabIndex) {
         case 0:
           dataType = "BTCUSDT";
+          periodType = "D";
           break;
         case 1:
+          dataType = "BTCUSDT";
+          periodType = "H4";
+          break;
+        case 2:
+          dataType = "BTCUSDT";
+          periodType = "H1";
+          break;
+        case 3:
           dataType = "XAUUSD";
           break;
       }
+      const params = {
+        data: dataType,
+      };
+      if (dataType === "BTCUSDT") {
+        params.period = periodType;
+      }
       const res = await axios.get(
-        `http://54.179.120.86:8080/hungcr-signal/api/data/signals?data=${dataType}`
+        `http://54.179.120.86:8080/hungcr-signal/api/data/signals`,
+        {
+          params: params,
+        }
       );
       if (res) {
         setLoading(false);
@@ -47,7 +69,33 @@ export default function SignalList() {
     },
     [setTabIndex, fetchSignals]
   );
+  const sortByDate = (array) => {
+    return array.sort((a, b) => (a.date > b.date ? -1 : 1));
+  };
 
+  const totalSignalWon = useMemo(
+    () => signals?.filter((signal) => signal.profit > 0)?.length,
+    [signals]
+  );
+  const totalSignalLost = useMemo(
+    () => signals?.filter((signal) => signal.profit < 0)?.length,
+    [signals]
+  );
+  const totalWon = useMemo(
+    () =>
+      signals
+        ?.filter((signal) => signal.profit > 0)
+        ?.reduce((acc, signal) => acc + signal.profit, 0),
+    [signals]
+  );
+
+  const totalLost = useMemo(
+    () =>
+      signals
+        ?.filter((signal) => signal.profit < 0)
+        ?.reduce((acc, signal) => acc + signal.profit, 0) * -1,
+    [signals]
+  );
   useEffect(() => {
     fetchSignals(0);
   }, [fetchSignals]);
@@ -81,6 +129,15 @@ export default function SignalList() {
           {/* Add date picker here */}
           <div className={styles.datePicker}></div>
         </div>
+        <div className={cx(styles.flexCenter, styles.summaryDiv)}>
+          <p className={styles.greenColor}>{`Won = ${totalSignalWon}`}</p>
+          <p className={styles.redColor}>{`Lost = ${totalSignalLost}`}</p>
+          <p
+            className={
+              totalWon - totalLost > 0 ? styles.greenColor : styles.redColor
+            }
+          >{`Profit = ${Number(totalWon - totalLost).toFixed(2)}`}</p>
+        </div>
         <div className={styles.contentTab}>
           {loading ? (
             <div className={styles.loading}>
@@ -88,7 +145,7 @@ export default function SignalList() {
             </div>
           ) : (
             <div className={styles.signalList}>
-              {signals?.map((signal, index) => (
+              {sortByDate(signals)?.map((signal, index) => (
                 <SignalItem signal={signal} key={index} />
               ))}
             </div>

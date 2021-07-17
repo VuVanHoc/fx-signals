@@ -27,7 +27,11 @@ export default function SignalItem({ signal = {} }) {
   }, [date]);
 
   return (
-    <div className={styles.containerItem}>
+    <div
+      className={cx(styles.containerItem, {
+        [styles.containerItemActive]: status === "OPEN",
+      })}
+    >
       <div className={styles.signalItemColumnLeft}>
         {type === "SHORT" ? (
           <div className={styles.flexCenter}>
@@ -44,22 +48,28 @@ export default function SignalItem({ signal = {} }) {
           className={cx({ [styles.yellowColor]: true })}
           style={{ marginTop: 12, marginBottom: 12 }}
         >
-          EURUSD
+          {dataType}
         </p>
         <p className={styles.dateTime}>{moment(date).format("YYYY/MM/DD")}</p>
         <p className={styles.dateTime}>{moment(date).fromNow(false)}</p>
       </div>
       <div className={styles.signalItemColumnRight}>
         <div className={styles.flexCenter}>
+          <p className={styles.labelSignalItem}>Date</p>
+          <p className={cx({ [styles.value]: true })}>
+            {date ? moment(date).format("HH:mm DD-MMM-YYYY") : "-"}
+          </p>
+        </div>
+        <div className={styles.flexCenter}>
           <p className={styles.labelSignalItem}>Entry</p>
           <p className={cx({ [styles.value]: true })}>
-            {entry ? entry.toFixed(3) : "-"}
+            {entry ? entry.toFixed(2) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
           <p className={styles.labelSignalItem}>Closed</p>
           <p className={cx({ [styles.value]: true })}>
-            {closed ? closed.toFixed(3) : "-"}
+            {closed ? closed.toFixed(2) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
@@ -71,17 +81,17 @@ export default function SignalItem({ signal = {} }) {
               [styles.greenColor]: profit >= 0,
             })}
           >
-            {profit ? profit.toFixed(3) : "-"}
+            {profit ? profit.toFixed(2) : "-"}
           </p>
         </div>
         {/* <div className={styles.flexCenter}>
           <p className={styles.labelSignalItem}>TP 3</p>
           <p className={cx({ [styles.value]: true })}>{tp3 || "-"}</p>
         </div> */}
-        <div className={styles.flexCenter}>
+        {/* <div className={styles.flexCenter}>
           <p className={styles.labelSignalItem}>SL</p>
           <p className={cx({ [styles.value]: true })}>{`-`}</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
