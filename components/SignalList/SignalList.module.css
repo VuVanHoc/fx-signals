@@ -9,7 +9,8 @@
 .title {
   margin: 0;
   color: #fff;
-  font-size: 36px;
+  /* font-size: 36px; */
+  font-size: 28px;
   font-weight: 100;
 }
 .line {
@@ -27,7 +28,8 @@
 }
 .tabItem {
   color: #fff;
-  width: 100px;
+  /* width: 100px; */
+  width: 25%;
   cursor: pointer;
   padding-bottom: 8px;
   border-bottom: 1px solid #bdbdbd;
@@ -38,7 +40,7 @@
 }
 .headerTab {
   /* border-bottom: 1px solid #bdbdbd; */
-  display: flex;
+  /* display: flex; */
 }
 .datePicker {
   border-bottom: 1px solid #bdbdbd;
@@ -51,7 +53,7 @@
 }
 .signalList {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto;
   column-gap: 20px;
   row-gap: 20px;
   margin-top: 30px;
@@ -91,7 +93,8 @@
 }
 .labelSignalItem {
   color: #bdbdbd;
-  width: 80px;
+  /* width: 80px; */
+  width: 40px;
   margin: 8px 0;
 }
 .value {
@@ -105,7 +108,40 @@
   margin: 0;
 }
 .summaryDiv {
-  width: 300px;
+  /* width: 300px; */
+  width: 100%;
   justify-content: space-between;
   margin-top: 30px;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .signalList {
+    grid-template-columns: auto auto;
+  }
+  .summaryDiv {
+    width: 300px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .signalList {
+    grid-template-columns: auto auto auto;
+  }
+  .headerTab {
+    border-bottom: 1px solid #bdbdbd;
+    display: flex;
+  }
+  .tabItem {
+    width: 100px;
+  }
 }
