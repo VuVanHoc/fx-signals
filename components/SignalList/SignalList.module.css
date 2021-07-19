@@ -25,11 +25,12 @@
 }
 .tabs {
   display: flex;
+  padding-top: 10px;
 }
 .tabItem {
   color: #fff;
-  width: 100px;
-  /* width: 25%; */
+  width: 110px;
+  text-align: center;
   cursor: pointer;
   padding-bottom: 8px;
   border-bottom: 1px solid #bdbdbd;
@@ -37,9 +38,14 @@
 .tabItemActive {
   color: #fbc02d;
   border-bottom: 2px solid #fbc02d;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: -7px;
 }
 .headerTab {
-  /* border-bottom: 1px solid #bdbdbd; */
+  border-bottom: 1px solid #bdbdbd;
+  width: 550px;
+  overflow-x: scroll;
   /* display: flex; */
 }
 .datePicker {
@@ -130,6 +136,12 @@
   .numberSummary {
     font-size: 24px;
   }
+  .headerTab {
+    border-bottom: 1px solid #bdbdbd;
+    display: flex;
+    width: auto;
+    overflow: hidden;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -141,11 +153,11 @@
   .signalList {
     grid-template-columns: auto auto auto;
   }
-  .headerTab {
-    border-bottom: 1px solid #bdbdbd;
-    display: flex;
-  }
+
   .tabItem {
-    width: 100px;
+    width: 110px;
+  }
+  .tabItemActive {
+    margin-top: -5px;
   }
 }

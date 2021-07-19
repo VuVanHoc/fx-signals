@@ -8,12 +8,12 @@ import SignalItem from "./SignalItem";
 export default function SignalList() {
   const tabs = useMemo(
     () => [
-      { title: "BTC D1", value: 0 },
+      { title: "BTC H1", value: 0 },
       { title: "BTC H4", value: 1 },
-      { title: "BTC H1", value: 2 },
-      { title: "GOLD D1", value: 3 },
-      { title: "GOLD H4", value: 4 },
-      { title: "GOLD H1", value: 5 },
+      { title: "BTC D", value: 2 },
+      { title: "GOLD H1", value: 3 },
+      // { title: "GOLD H4", value: 4 },
+      { title: "GOLD D", value: 5 },
     ],
     []
   );
@@ -25,12 +25,12 @@ export default function SignalList() {
     setLoading(true);
     try {
       let dataType = "BTCUSDT";
-      let periodType = "D";
+      let periodType = "H1";
 
       switch (tabIndex) {
         case 0:
           dataType = "BTCUSDT";
-          periodType = "D";
+          periodType = "H1";
           break;
         case 1:
           dataType = "BTCUSDT";
@@ -38,11 +38,11 @@ export default function SignalList() {
           break;
         case 2:
           dataType = "BTCUSDT";
-          periodType = "H1";
+          periodType = "D";
           break;
         case 3:
           dataType = "XAUUSD";
-          periodType = "D";
+          periodType = "H1";
           break;
         case 4:
           dataType = "XAUUSD";
@@ -50,7 +50,7 @@ export default function SignalList() {
           break;
         case 5:
           dataType = "XAUUSD";
-          periodType = "H1";
+          periodType = "D";
           break;
       }
       const params = {
