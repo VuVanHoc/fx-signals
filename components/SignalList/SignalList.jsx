@@ -11,7 +11,9 @@ export default function SignalList() {
       { title: "BTC D1", value: 0 },
       { title: "BTC H4", value: 1 },
       { title: "BTC H1", value: 2 },
-      { title: "XAU", value: 3 },
+      { title: "GOLD D1", value: 3 },
+      { title: "GOLD H4", value: 4 },
+      { title: "GOLD H1", value: 5 },
     ],
     []
   );
@@ -40,20 +42,34 @@ export default function SignalList() {
           break;
         case 3:
           dataType = "XAUUSD";
+          periodType = "D";
+          break;
+        case 4:
+          dataType = "XAUUSD";
+          periodType = "H4";
+          break;
+        case 3:
+          dataType = "XAUUSD";
+          periodType = "H1";
           break;
       }
       const params = {
         data: dataType,
+        period: periodType,
       };
-      if (dataType === "BTCUSDT") {
-        params.period = periodType;
-      }
+
       const res = await axios.get(
-        `https://forex-signal-api.herokuapp.com/hungcr-signal/api/data/signals`,
+        `https://be.fx-signal.club/fx-signal/api/data/signals`,
         {
           params: params,
         }
       );
+      // const res = await axios.get(
+      //   `http://54.179.120.86:8080/hungcr-signal/api/data/signals`,
+      //   {
+      //     params: params,
+      //   }
+      // );
       if (res) {
         setLoading(false);
         setSignal(res.data || []);
@@ -130,13 +146,18 @@ export default function SignalList() {
           <div className={styles.datePicker}></div>
         </div>
         <div className={cx(styles.flexCenter, styles.summaryDiv)}>
-          <p className={styles.greenColor}>{`Won = ${totalSignalWon}`}</p>
-          <p className={styles.redColor}>{`Lost = ${totalSignalLost}`}</p>
           <p
-            className={
-              totalWon - totalLost > 0 ? styles.greenColor : styles.redColor
-            }
-          >{`Profit = ${Number(totalWon - totalLost).toFixed(2)}`}</p>
+            className={cx(styles.numberSummary, styles.greenColor)}
+          >{`Won = ${totalSignalWon}, `}</p>
+          <p
+            className={cx(styles.numberSummary, styles.redColor)}
+          >{`Lost = ${totalSignalLost}`}</p>
+          <p
+            className={cx(styles.numberSummary, {
+              [styles.greenColor]: totalWon - totalLost > 0,
+              [styles.redColor]: totalWon - totalLost < 0,
+            })}
+          >{` | Profit = ${Number(totalWon - totalLost).toFixed(2)}`}</p>
         </div>
         <div className={styles.contentTab}>
           {loading ? (

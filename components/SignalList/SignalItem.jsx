@@ -67,7 +67,9 @@ export default function SignalItem({ signal = {} }) {
           </p>
         </div>
         <div className={styles.flexCenter}>
-          <p className={styles.labelSignalItem}>Closed</p>
+          <p className={styles.labelSignalItem}>
+            {status === "OPEN" ? `Current` : `Closed`}
+          </p>
           <p className={cx({ [styles.value]: true })}>
             {closed ? closed.toFixed(2) : "-"}
           </p>

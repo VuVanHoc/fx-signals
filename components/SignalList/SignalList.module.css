@@ -28,8 +28,8 @@
 }
 .tabItem {
   color: #fff;
-  /* width: 100px; */
-  width: 25%;
+  width: 100px;
+  /* width: 25%; */
   cursor: pointer;
   padding-bottom: 8px;
   border-bottom: 1px solid #bdbdbd;
@@ -71,18 +71,19 @@
 .containerItemActive {
   border: 2px solid #66bb6a;
 }
-
+.numberSummary {
+  margin: 0;
+  white-space: break-spaces;
+  font-size: 18px;
+}
 .redColor {
   color: #ef5350;
-  margin: 0;
 }
 .greenColor {
   color: #66bb6a;
-  margin: 0;
 }
 .yellowColor {
   color: #fbc02d;
-  margin: 0;
 }
 .flexCenter {
   display: flex;
@@ -110,7 +111,7 @@
 .summaryDiv {
   /* width: 300px; */
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 30px;
 }
 
@@ -124,7 +125,10 @@
     grid-template-columns: auto auto;
   }
   .summaryDiv {
-    width: 300px;
+    width: 500px;
+  }
+  .numberSummary {
+    font-size: 24px;
   }
 }
 
