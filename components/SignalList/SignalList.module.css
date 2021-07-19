@@ -26,6 +26,7 @@
 .tabs {
   display: flex;
   padding-top: 10px;
+  width: 550px;
 }
 .tabItem {
   color: #fff;
@@ -44,12 +45,12 @@
 }
 .headerTab {
   border-bottom: 1px solid #bdbdbd;
-  width: 550px;
   overflow-x: scroll;
+
   /* display: flex; */
 }
 .datePicker {
-  border-bottom: 1px solid #bdbdbd;
+  /* border-bottom: 1px solid #bdbdbd; */
   width: 100%;
 }
 .loading {
@@ -141,6 +142,10 @@
     display: flex;
     width: auto;
     overflow: hidden;
+  }
+  .datePicker {
+    border-bottom: 1px solid #bdbdbd;
+    width: 100%;
   }
 }
 
