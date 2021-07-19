@@ -48,7 +48,7 @@ export default function SignalList() {
           dataType = "XAUUSD";
           periodType = "H4";
           break;
-        case 3:
+        case 5:
           dataType = "XAUUSD";
           periodType = "H1";
           break;
@@ -56,6 +56,7 @@ export default function SignalList() {
       const params = {
         data: dataType,
         period: periodType,
+        accessKey: "qtYBtVSy8q",
       };
 
       const res = await axios.get(

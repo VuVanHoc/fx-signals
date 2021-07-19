@@ -10,7 +10,7 @@ function Header() {
         <NavBar />
       </div>
       <div className={styles.subContainer}>
-        <h1 className={styles.h1}>Forex Signals</h1>
+        <h1 className={styles.h1}>FX-Crypto Signal</h1>
         <p className={styles.headerContent}>
           {`Simple Forex-crypto signals with more than 70% prediction accuracy`}
         </p>
