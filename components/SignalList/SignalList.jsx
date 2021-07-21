@@ -1,9 +1,9 @@
 import styles from "./SignalList.module.css";
 import { useMemo, useState, useCallback, useEffect } from "react";
 import cx from "classnames";
-import axios from "axios";
 import ReactLoading from "react-loading";
 import SignalItem from "./SignalItem";
+import api from "../../api";
 
 export default function SignalList() {
   const tabs = useMemo(
@@ -56,21 +56,13 @@ export default function SignalList() {
       const params = {
         data: dataType,
         period: periodType,
-        accessKey: "qtYBtVSy8q",
+        accessKey: localStorage.getItem("accessKey"),
       };
 
-      const res = await axios.get(
-        `https://be.fx-signal.club/fx-signal/api/data/signals`,
-        {
-          params: params,
-        }
-      );
-      // const res = await axios.get(
-      //   `http://54.179.120.86:8080/hungcr-signal/api/data/signals`,
-      //   {
-      //     params: params,
-      //   }
-      // );
+      const res = await api.get(`/signals`, {
+        params: params,
+      });
+
       if (res) {
         setLoading(false);
         setSignal(res.data || []);
