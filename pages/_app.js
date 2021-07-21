@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    const accessKey = localStorage.getItem("accessKey");
+    const accessKey = sessionStorage.getItem("accessKey");
     if (!accessKey) {
       router.push("/login");
     }

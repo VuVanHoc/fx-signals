@@ -56,7 +56,7 @@ export default function SignalList() {
       const params = {
         data: dataType,
         period: periodType,
-        accessKey: localStorage.getItem("accessKey"),
+        accessKey: sessionStorage.getItem("accessKey"),
       };
 
       const res = await api.get(`/signals`, {

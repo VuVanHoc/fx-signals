@@ -41,7 +41,7 @@ export default function Login() {
         }
       );
       if (res?.data) {
-        localStorage.setItem("accessKey", accessKey);
+        sessionStorage.setItem("accessKey", accessKey);
         setSubmitting(false);
         routers.push("/");
       } else {
