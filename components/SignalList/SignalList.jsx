@@ -135,7 +135,7 @@ export default function SignalList() {
             className={cx(styles.numberSummary, styles.redColor)}
           >{`Lost = ${totalSignalLost}`}</p>
           <p className={cx(styles.numberSummary, styles.greenColor)}>
-            <span>{`     |     `}</span>
+            <span>{`   |   `}</span>
             {`Win rate = ${
               totalSignalWon + totalSignalLost !== 0
                 ? Math.round(
@@ -150,7 +150,7 @@ export default function SignalList() {
               [styles.redColor]: totalWon - totalLost < 0,
             })}
           >
-            <span className={styles.hiddenOnMobile}>{`     |     `}</span>
+            <span className={styles.hiddenOnMobile}>{`   |   `}</span>
             {`Profit = ${Number(totalWon - totalLost).toFixed(2)}`}
           </p>
         </div>
