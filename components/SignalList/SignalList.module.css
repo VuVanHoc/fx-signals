@@ -25,11 +25,13 @@
 }
 .tabs {
   display: flex;
+  padding-top: 10px;
+  width: 550px;
 }
 .tabItem {
   color: #fff;
-  width: 100px;
-  /* width: 25%; */
+  width: 150px;
+  text-align: center;
   cursor: pointer;
   padding-bottom: 8px;
   border-bottom: 1px solid #bdbdbd;
@@ -37,13 +39,18 @@
 .tabItemActive {
   color: #fbc02d;
   border-bottom: 2px solid #fbc02d;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: -7px;
 }
 .headerTab {
-  /* border-bottom: 1px solid #bdbdbd; */
+  border-bottom: 1px solid #bdbdbd;
+  overflow-x: scroll;
+
   /* display: flex; */
 }
 .datePicker {
-  border-bottom: 1px solid #bdbdbd;
+  /* border-bottom: 1px solid #bdbdbd; */
   width: 100%;
 }
 .loading {
@@ -113,8 +120,11 @@
   width: 100%;
   justify-content: flex-start;
   margin-top: 30px;
+  flex-wrap: wrap;
 }
-
+.hiddenOnMobile {
+  display: none;
+}
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 }
@@ -125,10 +135,23 @@
     grid-template-columns: auto auto;
   }
   .summaryDiv {
-    width: 500px;
+    width: 700px;
   }
   .numberSummary {
     font-size: 24px;
+  }
+  .headerTab {
+    border-bottom: 1px solid #bdbdbd;
+    display: flex;
+    width: auto;
+    overflow: hidden;
+  }
+  .datePicker {
+    border-bottom: 1px solid #bdbdbd;
+    width: 100%;
+  }
+  .hiddenOnMobile {
+    display: inline-flex;
   }
 }
 
@@ -141,11 +164,11 @@
   .signalList {
     grid-template-columns: auto auto auto;
   }
-  .headerTab {
-    border-bottom: 1px solid #bdbdbd;
-    display: flex;
-  }
+
   .tabItem {
-    width: 100px;
+    width: 150px;
+  }
+  .tabItemActive {
+    margin-top: -5px;
   }
 }
