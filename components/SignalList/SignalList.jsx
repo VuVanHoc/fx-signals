@@ -4,7 +4,10 @@ import cx from "classnames";
 import ReactLoading from "react-loading";
 import SignalItem from "./SignalItem";
 import api from "../../api";
+import ForexSignalItem from "./ForexSignalItem";
+import { MAP_STATUS, MAP_STATUS_ICON, SIGNAL_STATUS } from "../../Constant";
 
+const FX_SIGNAL_TYPE = "FX_SIGNAL";
 export default function SignalList() {
   // const tabs = useMemo(
   //   () => [
@@ -26,22 +29,37 @@ export default function SignalList() {
     if (!tab) return;
     setLoading(true);
     try {
-      let dataType = tab?.type;
-      let periodType = tab?.periodType;
+      if (tab.type === FX_SIGNAL_TYPE) {
+        const params = {
+          accessKey: sessionStorage.getItem("accessKey"),
+        };
 
-      const params = {
-        data: dataType,
-        period: periodType,
-        accessKey: sessionStorage.getItem("accessKey"),
-      };
+        const res = await api.get(`/forexSignals`, {
+          params: params,
+        });
 
-      const res = await api.get(`/signals`, {
-        params: params,
-      });
+        if (res) {
+          setLoading(false);
+          setSignal(res.data || []);
+        }
+      } else {
+        let dataType = tab?.type;
+        let periodType = tab?.periodType;
 
-      if (res) {
-        setLoading(false);
-        setSignal(res.data || []);
+        const params = {
+          data: dataType,
+          period: periodType,
+          accessKey: sessionStorage.getItem("accessKey"),
+        };
+
+        const res = await api.get(`/signals`, {
+          params: params,
+        });
+
+        if (res) {
+          setLoading(false);
+          setSignal(res.data || []);
+        }
       }
     } catch (error) {
       setLoading(true);
@@ -55,6 +73,9 @@ export default function SignalList() {
     [setTabIndex, fetchSignals]
   );
   const sortByDate = (array) => {
+    if (tabIndex?.type === FX_SIGNAL_TYPE) {
+      return array.sort((a, b) => (a.dateMils > b.dateMils ? -1 : 1));
+    }
     return array.sort((a, b) => (a.date > b.date ? -1 : 1));
   };
 
@@ -85,7 +106,14 @@ export default function SignalList() {
     try {
       const res = await api.get(`/labels`);
       if (res) {
-        setTabs(res.data);
+        setTabs([
+          ...res.data,
+          {
+            name: "FX Signals",
+            type: FX_SIGNAL_TYPE,
+            periodType: "ALL",
+          },
+        ]);
         handleClickTab(res.data?.[0]);
       }
     } catch (error) {}
@@ -127,33 +155,63 @@ export default function SignalList() {
           {/* Add date picker here */}
           <div className={styles.datePicker}></div>
         </div>
-        <div className={cx(styles.flexCenter, styles.summaryDiv)}>
-          <p
-            className={cx(styles.numberSummary, styles.greenColor)}
-          >{`Won = ${totalSignalWon}, `}</p>
-          <p
-            className={cx(styles.numberSummary, styles.redColor)}
-          >{`Lost = ${totalSignalLost}`}</p>
-          <p className={cx(styles.numberSummary, styles.greenColor)}>
-            <span>{`   |   `}</span>
-            {`Win rate = ${
-              totalSignalWon + totalSignalLost !== 0
-                ? Math.round(
-                    (totalSignalWon * 100) / (totalSignalWon + totalSignalLost)
-                  )
-                : 0
-            }%`}
-          </p>
-          <p
-            className={cx(styles.numberSummary, {
-              [styles.greenColor]: totalWon - totalLost > 0,
-              [styles.redColor]: totalWon - totalLost < 0,
-            })}
-          >
-            <span className={styles.hiddenOnMobile}>{`   |   `}</span>
-            {`Profit = ${Number(totalWon - totalLost).toFixed(2)}`}
-          </p>
-        </div>
+        {tabIndex?.type === FX_SIGNAL_TYPE ? (
+          <div className={cx(styles.flexCenter, styles.summaryDiv)}>
+            <p
+              className={cx(styles.numberSummary, styles.greenColor)}
+            >{`TP 1 = ${
+              signals?.filter((signal) => signal.status === SIGNAL_STATUS.TP1)
+                ?.length
+            }, `}</p>
+            <p
+              className={cx(styles.numberSummary, styles.greenColor)}
+            >{`TP 2 = ${
+              signals?.filter((signal) => signal.status === SIGNAL_STATUS.TP2)
+                ?.length
+            }, `}</p>
+            <p
+              className={cx(styles.numberSummary, styles.greenColor)}
+            >{`TP 3 = ${
+              signals?.filter((signal) => signal.status === SIGNAL_STATUS.TP3)
+                ?.length
+            }, `}</p>
+            <p className={cx(styles.numberSummary, styles.redColor)}>{`SL = ${
+              signals?.filter(
+                (signal) => signal.status === SIGNAL_STATUS.HIT_SL
+              )?.length
+            }`}</p>
+          </div>
+        ) : (
+          <div className={cx(styles.flexCenter, styles.summaryDiv)}>
+            <p
+              className={cx(styles.numberSummary, styles.greenColor)}
+            >{`Won = ${totalSignalWon}, `}</p>
+            <p
+              className={cx(styles.numberSummary, styles.redColor)}
+            >{`Lost = ${totalSignalLost}`}</p>
+            <p className={cx(styles.numberSummary, styles.greenColor)}>
+              <span>{`   |   `}</span>
+              {`Win rate = ${
+                totalSignalWon + totalSignalLost !== 0
+                  ? Math.round(
+                      (totalSignalWon * 100) /
+                        (totalSignalWon + totalSignalLost)
+                    )
+                  : 0
+              }%`}
+            </p>
+            <p
+              className={cx(styles.numberSummary, {
+                [styles.greenColor]: totalWon - totalLost > 0,
+                [styles.redColor]: totalWon - totalLost < 0,
+              })}
+            >
+              <span className={styles.hiddenOnMobile}>{`   |   `}</span>
+              {`Profit = ${Number(totalWon - totalLost).toFixed(2)}`}
+            </p>
+          </div>
+        )}
+
         <div className={styles.contentTab}>
           {loading ? (
             <div className={styles.loading}>
@@ -161,9 +219,13 @@ export default function SignalList() {
             </div>
           ) : (
             <div className={styles.signalList}>
-              {sortByDate(signals)?.map((signal, index) => (
-                <SignalItem signal={signal} key={index} />
-              ))}
+              {sortByDate(signals)?.map((signal, index) =>
+                tabIndex?.type === FX_SIGNAL_TYPE ? (
+                  <ForexSignalItem signal={signal} key={index} />
+                ) : (
+                  <SignalItem signal={signal} key={index} />
+                )
+              )}
             </div>
           )}
         </div>

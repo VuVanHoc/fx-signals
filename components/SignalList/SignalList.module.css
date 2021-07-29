@@ -26,7 +26,7 @@
 .tabs {
   display: flex;
   padding-top: 10px;
-  width: 550px;
+  width: 600px;
 }
 .tabItem {
   color: #fff;
@@ -72,8 +72,8 @@
   padding: 24px;
   display: flex;
   justify-content: space-between;
-  max-height: 180px;
-  height: 180px;
+  /* max-height: 180px; */
+  height: auto;
 }
 .containerItemActive {
   border: 2px solid #66bb6a;
@@ -105,6 +105,9 @@
   width: 40px;
   margin: 8px 0;
 }
+.labelSignalItemForexSignal {
+  width: 100px;
+}
 .value {
   margin: 0;
   text-align: right;
@@ -124,6 +127,11 @@
 }
 .hiddenOnMobile {
   display: none;
+}
+.signalItemColumnLeftForexSignal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {

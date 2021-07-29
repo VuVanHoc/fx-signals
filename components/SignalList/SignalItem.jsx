@@ -86,14 +86,6 @@ export default function SignalItem({ signal = {} }) {
             {profit ? profit.toFixed(2) : "-"}
           </p>
         </div>
-        {/* <div className={styles.flexCenter}>
-          <p className={styles.labelSignalItem}>TP 3</p>
-          <p className={cx({ [styles.value]: true })}>{tp3 || "-"}</p>
-        </div> */}
-        {/* <div className={styles.flexCenter}>
-          <p className={styles.labelSignalItem}>SL</p>
-          <p className={cx({ [styles.value]: true })}>{`-`}</p>
-        </div> */}
       </div>
     </div>
   );
