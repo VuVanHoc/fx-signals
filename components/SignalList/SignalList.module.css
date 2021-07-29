@@ -26,7 +26,7 @@
 .tabs {
   display: flex;
   padding-top: 10px;
-  width: 600px;
+  width: 700px;
 }
 .tabItem {
   color: #fff;
@@ -69,7 +69,7 @@
 .containerItem {
   background-color: #313131;
   border-radius: 12px;
-  padding: 24px;
+  padding: 24px 12px;
   display: flex;
   justify-content: space-between;
   /* max-height: 180px; */
@@ -106,7 +106,7 @@
   margin: 8px 0;
 }
 .labelSignalItemForexSignal {
-  width: 100px;
+  width: 95px;
 }
 .value {
   margin: 0;

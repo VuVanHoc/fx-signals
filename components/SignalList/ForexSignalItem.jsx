@@ -11,6 +11,7 @@ export default function ForexSignalItem({ signal = {} }) {
   const { type, symbol, entry, status, profit, dateMils, sL, tP1, tP2, tP3 } =
     signal;
 
+  const numberToFixed = symbol?.includes("JPY") ? 2 : 4;
   return (
     <div
       className={cx(styles.containerItem, {
@@ -84,7 +85,7 @@ export default function ForexSignalItem({ signal = {} }) {
             Entry
           </p>
           <p className={cx({ [styles.value]: true })}>
-            {entry ? entry.toFixed(2) : "-"}
+            {entry ? entry.toFixed(numberToFixed) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
@@ -97,7 +98,7 @@ export default function ForexSignalItem({ signal = {} }) {
             Take Profit 1
           </p>
           <p className={cx({ [styles.value]: true }, styles.greenColor)}>
-            {tP1 ? tP1.toFixed(2) : "-"}
+            {tP1 ? tP1.toFixed(numberToFixed) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
@@ -110,7 +111,7 @@ export default function ForexSignalItem({ signal = {} }) {
             Take Profit 2
           </p>
           <p className={cx({ [styles.value]: true }, styles.greenColor)}>
-            {tP2 ? tP2.toFixed(2) : "-"}
+            {tP2 ? tP2.toFixed(numberToFixed) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
@@ -123,7 +124,7 @@ export default function ForexSignalItem({ signal = {} }) {
             Take Profit 3
           </p>
           <p className={cx({ [styles.value]: true }, styles.greenColor)}>
-            {tP3 ? tP3.toFixed(2) : "-"}
+            {tP3 ? tP3.toFixed(numberToFixed) : "-"}
           </p>
         </div>
         <div className={styles.flexCenter}>
@@ -136,7 +137,7 @@ export default function ForexSignalItem({ signal = {} }) {
             Stoploss
           </p>
           <p className={cx({ [styles.value]: true }, styles.redColor)}>
-            {sL ? sL.toFixed(2) : "-"}
+            {sL ? sL.toFixed(numberToFixed) : "-"}
           </p>
         </div>
       </div>
