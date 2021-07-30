@@ -107,12 +107,12 @@ export default function SignalList() {
       const res = await api.get(`/labels`);
       if (res) {
         setTabs([
-          ...res.data,
           {
             name: "FX Signals",
             type: FX_SIGNAL_TYPE,
             periodType: "ALL",
           },
+          ...res.data,
         ]);
         handleClickTab(res.data?.[0]);
       }
